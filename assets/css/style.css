@@ -1,3 +1,7 @@
+body {
+    font-family: "Geo", Arial, Helvetica, sans-serif;
+}
+
 .btn-purple {
     color: white;
     background-color: purple;
@@ -33,3 +37,8 @@
     font-size: 20px;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+@font-face {
+    font-family: "Geo";
+    src: url("../fonts/Geo/Geo.otf");
+  }
