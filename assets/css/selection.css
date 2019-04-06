@@ -12,18 +12,18 @@ body {
     background-image: url(../img/whitesmoke.PNG);
     background-position: center;
     background-size: contain;
-    padding: 20px 0px;
+    padding: 25px 0px;
 }
 #col2 {
     background-color: gray;
-    padding: 5px 0px;
+    padding: 15px 0px;
 }
 #col3 {
     background-repeat: no-repeat;
     background-image: url(../img/whitesmoke.PNG);
     background-position: center;
     background-size: contain;
-    padding: 20px 0px;
+    padding: 25px 0px;
 }
 #col4 {
     background-color: whitesmoke;
