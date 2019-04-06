@@ -1,27 +1,27 @@
 #col1 {
-    background-image: url("../img/Blue_circle.png");
+    background-image: url("../img/Blue_circle_results_page.png");
     background-position-x: left;
     background-position-y: top;
-    background-size: 1200px 1200px;
+    background-size: 1000px 1000px;
     padding: 150px 10px;
 }
 #col2 {
-    background-image: url("../img/Horizon.png");
     background-size: cover;
     padding: 30px 0px;
 }
 #col3 {
-    background-image: url("../img/Red_circle.png");
+    background-image: url("../img/Red_circle_results_page.png");
     background-position-x: right;
     background-position-y: top;
-    background-size: 1200px 1200px;
+    background-size: 1000px 1000px;
     padding: 150px 10px;
 }
 #row2 {
+    background-image: url("../img/horizon_results_page.png");
+    background-size: cover;
     padding: 50px 0px;
 }
 body {
-    background-image: url("../img/Horizon.png");
     background-color: black;
     background-repeat: no-repeat;
     background-position-y: bottom;
