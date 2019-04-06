@@ -24,12 +24,12 @@ body {
 }
 
 #col1, #col2 {
-    padding: 350px 0px;
+    padding: 300px 0px;
 }
 
 #horizon {
     padding: 100px 0px;
-    margin-top: -150px;
+    /* margin-top: -150px; */
 }
 
 #grid {
