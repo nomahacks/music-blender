@@ -1,8 +1,17 @@
 body {
     background-color: black;
+    background-repeat: no-repeat;
+
+    background-image: url(../img/horizon_results_page.png), url(../img/Blue_circle_results_page.png), url(../img/Red_circle_results_page.png);
+    background-position-y: 500px, -50px, -50px;
+    background-position-x: center, -90%, 190%;
+    background-size: cover, 75% 1000px, 75% 1000px;
 }
 #col1 {
-    background-color: whitesmoke;
+    background-repeat: no-repeat;
+    background-image: url(../img/whitesmoke.PNG);
+    background-position: center;
+    background-size: contain;
     padding: 20px 0px;
 }
 #col2 {
@@ -10,14 +19,22 @@ body {
     padding: 5px 0px;
 }
 #col3 {
-    background-color: whitesmoke;
+    background-repeat: no-repeat;
+    background-image: url(../img/whitesmoke.PNG);
+    background-position: center;
+    background-size: contain;
     padding: 20px 0px;
 }
 #col4 {
     background-color: whitesmoke;
     padding: 20px 20px;
+    border-left: 1px solid black;
 }
 #col5 {
     background-color: lightgray;
     padding: 20px 20px;
+    border-left: 1px solid black;
+}
+#empty {
+    padding: 10px 0px;
 }
