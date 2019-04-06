@@ -1,3 +1,35 @@
 body {
-    background-image: url("../img/test-bg.png");
+    /* background-image: url("../img/title_page_background.png");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover; 
+    background-size: 702px 496px;
+    background-repeat: no-repeat;
+    background-position: center fixed; */
+    background-color: black;
+    color: white;
+}
+
+#col1 {
+    background-image: url("../img/Blue_circle.png");
+    background-position: center;
+    background-size: cover;
+    margin: 0px 75px;
+}
+
+#col2 {
+    background-image: url("../img/Red_circle.png");
+    background-position: center;
+    background-size: cover;
+    margin: 0px -300px;
+}
+
+#col1, #col2 {
+    padding: 250px 0px;
+}
+
+#horizon {
+    background-image: url("../img/Horizon.png");
+    background-position: center;
+    background-size: cover;
 }

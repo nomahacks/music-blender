@@ -11,19 +11,27 @@
 
     <body>
 
-    <h1>Music Blender</h1>
-    <p>Music app that allows you to find common music between two artists.</p>
+    <h1 class="text-center">Music Blender</h1>
+    <p class="text-center">Music app that allows you to find common music between two artists.</p>
 
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Ex: Daft Punk" aria-label="Ex: Daft Punk">
+    <div class="container">
+        <div class="row">
+            <div class="input-group mb-3">
+                <div id="col1" class="d-flex col-sm-6 justify-content-center">
+                    <input type="text" class="form-control d-flex w-50" placeholder="Ex: Daft Punk" aria-label="Ex: Daft Punk">
+                </div>
+                <div id="col2" class="d-flex col-sm-6 justify-content-center">
+                    <input type="text" class="form-control d-flex w-50" placeholder="Ex: Bag Raiders" aria-label="Ex: Bag Raiders">
+                </div>
+            </div>
+        </div>
+        <div id="horizon" class="row d-flex justify-content-center">
+            <button type="button" class="btn btn-purple">Blend</button>
+        </div>
     </div>
-
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Ex: Bag Raiders" aria-label="Ex: Bag Raiders">
-    </div>
-
-    <button type="button" class="btn btn-purple">Blend</button>
     
+    
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
