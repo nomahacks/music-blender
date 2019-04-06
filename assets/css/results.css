@@ -1,31 +1,33 @@
 #col1 {
-    background-image: url("../img/Blue_circle_results_page.png");
+    /*background-image: url("../img/Blue_circle_results_page.png");
     background-position-x: left;
     background-position-y: top;
-    background-size: 1000px 1000px;
-    padding: 150px 10px;
+    background-size: 1000px 1000px;*/
+    padding: 50px 10px;
 }
 #col2 {
-    background-size: cover;
     padding: 30px 0px;
 }
 #col3 {
-    background-image: url("../img/Red_circle_results_page.png");
+    /*background-image: url("../img/Red_circle_results_page.png");
     background-position-x: right;
     background-position-y: top;
-    background-size: 1000px 1000px;
-    padding: 150px 10px;
+    background-size: 1000px 1000px;*/
+    padding: 50px 10px;
 }
 #row2 {
-    background-image: url("../img/horizon_results_page.png");
-    background-size: cover;
+    /*background-image: url("../img/horizon_results_page.png");
+    background-size: cover;*/
     padding: 50px 0px;
 }
 body {
     background-color: black;
     background-repeat: no-repeat;
-    background-position-y: bottom;
-    background-size: 2000px 300px;
+
+    background-image: url(../img/horizon_results_page.png), url(../img/Red_circle_results_page.png), url(../img/Blue_circle_results_page.png);
+    background-position-y: bottom, top, top;
+    background-position-x: center, left, right;
+    background-size: 2000px 350px, 1000px 1000px, 1000px 1000px;
 }
 #button {
     background-image: url("../img/Button.png");
