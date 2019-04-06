@@ -8,7 +8,7 @@ body {
     background-image: url("../img/Blue_circle.png");
     background-position-x: left;
     background-position-y: top;
-    background-size: cover;
+    background-size: 1200px 1200px;
 }
 #col2 {
     background-image: url("../img/Horizon.png");
@@ -18,7 +18,7 @@ body {
     background-image: url("../img/Red_circle.png");
     background-position-x: right;
     background-position-y: top;
-    background-size: cover;
+    background-size: 1200px 1200px;
 }
 #row2 {
     background-image: url("../img/Horizon.png");
