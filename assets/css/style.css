@@ -5,3 +5,7 @@
 .btn:hover {
     color: white;
 }
+.text {
+    font-size: 20;
+    align-items: center;
+}
