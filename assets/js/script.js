@@ -103,18 +103,18 @@ window.addEventListener('load', function() {
         if(!typeof params.artist1 === undefined) {
             app4.artist1 = params.artist1;
         }else{
-            app4.artist1 = "First Artist";
+            app4.artist1 = "Daft Punk";
         }
 
         if(!typeof params.artist2 === undefined) {
 
             app4.artist2 = params.artist2;
         }else{
-            app4.artist2 = "Second Artist";
+            app4.artist2 = "Bag Raiders";
         }
 
         console.log(params.artist1);
         console.log(params.artist2);
-    },1000);
+    },10);
 });
 
