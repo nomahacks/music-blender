@@ -27,5 +27,5 @@ body {
     background-image: url(../img/horizon_results_page.png), url(../img/Blue_circle_results_page.png), url(../img/Red_circle_results_page.png);
     background-position-y: 500px, -50px, -50px;
     background-position-x: center, -90%, 190%;
-    background-size: 100% 50%, 75% 1000px, 75% 1000px;
+    background-size: cover, 75% 1000px, 75% 1000px;
 }
