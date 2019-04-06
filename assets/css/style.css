@@ -18,3 +18,13 @@
     font-size: 60px;
     font-family: 'Times New Roman', Times, serif;
 }
+.selection_text {
+    color: black;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.selection_text_big {
+    color: black;
+    font-size: 60px;
+    font-family: 'Times New Roman', Times, serif;
+}

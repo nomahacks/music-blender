@@ -1,0 +1,23 @@
+body {
+    background-color: black;
+}
+#col1 {
+    background-color: whitesmoke;
+    padding: 20px 0px;
+}
+#col2 {
+    background-color: gray;
+    padding: 5px 0px;
+}
+#col3 {
+    background-color: whitesmoke;
+    padding: 20px 0px;
+}
+#col4 {
+    background-color: whitesmoke;
+    padding: 20px 20px;
+}
+#col5 {
+    background-color: lightgray;
+    padding: 20px 20px;
+}
