@@ -9,7 +9,7 @@ body {
     background-position-x: left;
     background-position-y: top;
     background-size: 1200px 1200px;
-    padding: 150px 0px;
+    padding: 150px 10px;
 }
 #col2 {
     background-image: url("../img/Horizon.png");
@@ -21,7 +21,7 @@ body {
     background-position-x: right;
     background-position-y: top;
     background-size: 1200px 1200px;
-    padding: 150px 0px;
+    padding: 150px 10px;
 }
 #row2 {
     background-image: url("../img/Horizon.png");
