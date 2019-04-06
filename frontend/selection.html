@@ -14,39 +14,43 @@
 
         <script type = "text/javascript" src="../assets/js/script.js"></script>
         <link rel="stylesheet" href="../assets/css/select.css">
+        <script src="../assets/js/getAllParams.js"></script>
+        <script type="text/javascript">
 
+
+        </script>
     </head>
     <body>
     <div id="app-4">
 
         <div class="container-fluid">
             <div class="row justify-content-md-center">
-                <div class="col-md-3 head1 text-center"></div>
+                <div class="col-md-3 head1 text-center"><h2 class="selection_text" v-on:click="greet">{{artist1}}</h2></div>
                 <div class="col-md-3 head2 text-center">
                     <h1 class="selection_text_big">Select Artists</h1>
                 </div>
-                <div class="col-md-3 head1 text-center"></div>
+                <div class="col-md-3 head1 text-center"><h2 class="selection_text" v-on:click="greet">{{artist2}}</h2></div>
             </div>
             <div id="empty" class="row"></div>
             <div class="row justify-content-md-center">
-                <div class="col-md-4 col4 text-left"> {{text[0]}}</div>
-                <div class="col-md-4 col4 text-right">{{text[1]}}</div>
+                <div class="col-md-4 col4 text-left"> <h2 class="selection_text" v-on:click="greet">{{text[0]}}</h2></div>
+                <div class="col-md-4 col4 text-right"><h2 class="selection_text" v-on:click="greet">{{text[1]}}</h2></div>
             </div>
             <div class="row justify-content-md-center">
-                <div class="col-md-4 col5 text-left">{{text[2]}}</div>
-                <div class="col-md-4 col5 text-right">{{text[3]}}</div>
+                <div class="col-md-4 col5 text-left"><h2 class="selection_text" v-on:click="greet">{{text[2]}}</h2></div>
+                <div class="col-md-4 col5 text-right"><h2 class="selection_text" v-on:click="greet">{{text[3]}}</h2></div>
             </div>
             <div class="row justify-content-md-center">
-                <div class="col-md-4 col4 text-left">{{text[4]}}</div>
-                <div class="col-md-4 col4 text-right">{{text[5]}}</div>
+                <div class="col-md-4 col4 text-left"><h2 class="selection_text" v-on:click="greet">{{text[4]}}</h2></div>
+                <div class="col-md-4 col4 text-right"><h2 class="selection_text" v-on:click="greet">{{text[5]}}</h2></div>
             </div>
             <div class="row justify-content-md-center">
-                <div class="col-md-4 col5 text-left">{{text[6]}}</div>
-                <div class="col-md-4 col5 text-right">{{text[7]}}</div>
+                <div class="col-md-4 col5 text-left"><h2 class="selection_text" v-on:click="greet">{{text[6]}}</h2></div>
+                <div class="col-md-4 col5 text-right"><h2 class="selection_text" v-on:click="greet">{{text[7]}}</h2></div>
             </div>
             <div class="row justify-content-md-center">
-                <div class="col-md-4 col4 text-left">{{text[8]}}</div>
-                <div class="col-md-4 col4 text-right">{{text[9]}}</div>
+                <div class="col-md-4 col4 text-left"><h2 class="selection_text" v-on:click="greet">{{text[8]}}</h2></div>
+                <div class="col-md-4 col4 text-right"><h2 class="selection_text" v-on:click="greet">{{text[9]}}</h2></div>
             </div>
         </div>
 
