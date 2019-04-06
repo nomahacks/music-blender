@@ -1,6 +1,31 @@
 body {
-    background-image: url("../img/second_page_background.png");
+    background-color: black;
     background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+#col1 {
+    background-image: url("../img/Blue_circle.png");
+    background-position-x: left;
+    background-position-y: top;
+    background-size: cover;
+}
+#col2 {
+    background-image: url("../img/Horizon.png");
+    background-size: cover;
+}
+#col3 {
+    background-image: url("../img/Red_circle.png");
+    background-position-x: right;
+    background-position-y: top;
+    background-size: cover;
+}
+#row2 {
+    background-image: url("../img/Horizon.png");
+    background-size: cover;
+}
+#button {
+    background-image: url("../img/Button.png");
     background-position: center;
     background-size: cover;
 }
