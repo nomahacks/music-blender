@@ -1,7 +1,14 @@
 function getAllUrlParams(url) {
 
     // get query string from url (optional) or window
-    var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
+    var url_string = decodeURIComponent(window.location);
+    var queryString;
+    if(url){
+       queryString = url.split('?')[1];
+    }else{
+       queryString =  window.location.search.slice(1);
+    }
+    // var queryString = url ?  : window.location.search.slice(1);
     
     // we'll store the parameters here
     var obj = {};

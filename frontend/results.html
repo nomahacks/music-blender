@@ -12,22 +12,29 @@
           }
         </script>
 
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+        <script type = "text/javascript" src="../assets/js/results_logic.js"></script>
+        <link rel="stylesheet" href="../assets/css/select.css">
+        <script src="../assets/js/getAllParams.js"></script>
+
         <title>Music Blender</title>
     </head>
     <body>
+    <div id="app-4">
         <div class="container-fluid">
             <div class="row">
               <div id="col1" class="col text-center">
-                <h2 class="text">Daft Punk</h2>
-                <img src="../assets/img/Daft_Punk.png" alt="First Artist" height=100 width=100>
+                  <h2 class=" text" >{{artist1}}</h2>
+                  <img src="../assets/img/album_art_results_page.png" alt="First Artist" height=100 width=100>
               </div>
               <div id="col2" class="col text-center">
-                <h1 class="big_text">Kavinsky</h1> <br>
-                <img src="../assets/img/Daft_Punk.png" alt="Blend Artist" height=500 width=500>
+                  <h2 class="big_text" >{{result_artist}}</h2><br>
+                <img src="../assets/img/chromeo.jpg" alt="Blend Artist" height=500 width=500>
               </div>
               <div id="col3" class="col text-center">
-                <h2 class="text">Bag Raiders</h2>
-                <img src="../assets/img/Daft_Punk.png" alt="Second Artist" height=100 width=100>
+                <h2 class=" text" >{{artist1}}</h2><br>
+                <img src="../assets/img/Badraiderscove_smallr.png" alt="Second Artist" height=100 width=100>
               </div>
             </div>
             <div id="row2" class="row">
@@ -35,8 +42,9 @@
                  <button id="button" type="button" class="btn btn-border big_text" onclick="blendAgain();">Blend Again?</button>
                 </div>
             </div>
-          </div>
-        
+        </div>
+    </div>
+
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
