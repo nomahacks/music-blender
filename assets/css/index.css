@@ -1,19 +1,24 @@
 body {
+    background-image: url("../img/Horizon.png"), url("../img/Blue_circle.png"), url("../img/Red_circle.png");
+    background-position-y: bottom, -100px, -100px;
+    background-position-x: center, -10%, 110%;
+    background-size: 100% 25%, contain, contain;
+    background-repeat: no-repeat;
     background-color: black;
     color: white;
 }
 
 #col1 {
-    background-image: url("../img/Blue_circle.png");
+    /* background-image: url("../img/Blue_circle.png");
     background-position: center;
-    background-size: cover;
+    background-size: cover; */
     margin-left: 75px;
 }
 
 #col2 {
-    background-image: url("../img/Red_circle.png");
+    /* background-image: url("../img/Red_circle.png");
     background-position: center;
-    background-size: cover;
+    background-size: cover; */
     margin-left: -150px;
 }
 
@@ -22,9 +27,6 @@ body {
 }
 
 #horizon {
-    background-image: url("../img/Horizon.png");
-    background-position: center;
-    background-size: cover;
     padding: 100px 0px;
     margin-top: -150px;
 }
@@ -34,5 +36,5 @@ body {
 }
 
 #blend {
-    font-size: 4em;
+    font-size: 2em;
 }
