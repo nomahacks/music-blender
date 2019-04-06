@@ -3,7 +3,7 @@
     background-position-x: left;
     background-position-y: top;
     background-size: 1000px 1000px;*/
-    padding: 50px 10px;
+    padding: 50px 0px;
 }
 #col2 {
     padding: 30px 0px;
@@ -13,7 +13,7 @@
     background-position-x: right;
     background-position-y: top;
     background-size: 1000px 1000px;*/
-    padding: 50px 10px;
+    padding: 50px 0px;
 }
 #row2 {
     /*background-image: url("../img/horizon_results_page.png");
@@ -27,10 +27,5 @@ body {
     background-image: url(../img/horizon_results_page.png), url(../img/Red_circle_results_page.png), url(../img/Blue_circle_results_page.png);
     background-position-y: bottom, top, top;
     background-position-x: center, left, right;
-    background-size: 2000px 350px, 1000px 1000px, 1000px 1000px;
-}
-#button {
-    background-image: url("../img/Button.png");
-    background-position: center;
-    background-size: cover;
+    background-size: 100% 40%, contain, contain;
 }
