@@ -18,19 +18,28 @@
         <div class="row">
             <div class="input-group mb-3">
                 <div id="col1" class="d-flex col-sm-6 justify-content-center">
-                    <input type="text" class="form-control d-flex w-50" placeholder="Ex: Daft Punk" aria-label="Ex: Daft Punk">
+                    <input id="artist1" type="text" class="form-control d-flex w-50" placeholder="Ex: Daft Punk" aria-label="Ex: Daft Punk">
+                    <!-- <p id="val-test"></p> -->
                 </div>
                 <div id="col2" class="d-flex col-sm-6 justify-content-center">
-                    <input type="text" class="form-control d-flex w-50" placeholder="Ex: Bag Raiders" aria-label="Ex: Bag Raiders">
+                    <input id="artist2" type="text" class="form-control d-flex w-50" placeholder="Ex: Bag Raiders" aria-label="Ex: Bag Raiders">
                 </div>
             </div>
         </div>
     </div>
 
-    
     <div id="horizon" class="d-flex justify-content-center">
-        <button id="blend" type="button" class="btn btn-purple">Blend</button>
+        <button id="blend" href="" type="button" class="btn btn-purple">Blend</button>
     </div>
+
+    <script>
+        document.getElementById("blend").onclick = function() {
+            var params = "artist1=" + $("#artist1").val() + "&artist2=" + $("#artist2").val();
+
+            window.location.href="selection.html?" + params; 
+            return false;
+        };
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
