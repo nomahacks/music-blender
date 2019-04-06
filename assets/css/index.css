@@ -1,0 +1,38 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+#col1 {
+    background-image: url("../img/Blue_circle.png");
+    background-position: center;
+    background-size: cover;
+    margin-left: 75px;
+}
+
+#col2 {
+    background-image: url("../img/Red_circle.png");
+    background-position: center;
+    background-size: cover;
+    margin-left: -150px;
+}
+
+#col1, #col2 {
+    padding: 350px 0px;
+}
+
+#horizon {
+    background-image: url("../img/Horizon.png");
+    background-position: center;
+    background-size: cover;
+    padding: 100px 0px;
+    margin-top: -150px;
+}
+
+#grid {
+    margin-top: -200px;
+}
+
+#blend {
+    font-size: 4em;
+}
