@@ -1,12 +1,20 @@
 .btn-purple {
-    color: #cccccc;
+    color: white;
     background-color: purple;
 }
+.btn-border {
+    border-color: white;
+}
 .btn:hover {
-    color: white;
+    color: black;
 }
 .text {
     color: white;
     font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.big_text {
+    color: white;
+    font-size: 60px;
     font-family: 'Times New Roman', Times, serif;
 }
