@@ -7,30 +7,23 @@ body {
     background-position-x: center, -90%, 190%;
     background-size: cover, 75% 1000px, 75% 1000px;
 }
-#col1 {
+.head1 {
     background-repeat: no-repeat;
     background-image: url(../img/whitesmoke.PNG);
     background-position: center;
     background-size: contain;
     padding: 25px 0px;
 }
-#col2 {
+.head2 {
     background-color: gray;
     padding: 15px 0px;
 }
-#col3 {
-    background-repeat: no-repeat;
-    background-image: url(../img/whitesmoke.PNG);
-    background-position: center;
-    background-size: contain;
-    padding: 25px 0px;
-}
-#col4 {
+.col4 {
     background-color: whitesmoke;
     padding: 20px 20px;
     border-left: 1px solid black;
 }
-#col5 {
+.col5 {
     background-color: lightgray;
     padding: 20px 20px;
     border-left: 1px solid black;
