@@ -4,7 +4,8 @@ window.addEventListener('load', function() {
     var app4 = new Vue({
         el: '#app-4',
         data: {
-            todos: []
+            todos: [],
+            text: ["Odeza","Gramatik","milky chance","VULFPECK","Common ","Blackmill","Deltron3030","Orsten","Kungs & Cookin'","Dodie"]
         },
         methods: {
             greet: function (event) {
