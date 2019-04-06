@@ -6,6 +6,7 @@ body {
     background-repeat: no-repeat;
     background-color: black;
     color: white;
+    text-shadow: 2px 2px black;
 }
 
 #col1 {
@@ -37,4 +38,12 @@ body {
 
 #blend {
     font-size: 2em;
+}
+
+h1 {
+    font-size: 3em;
+}
+
+p {
+    font-size: 1.3em;
 }
