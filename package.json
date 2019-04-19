@@ -1,0 +1,30 @@
+{
+  "name": "music-blender",
+  "version": "1.0.0",
+  "description": "music blender backend for getting spotify's api data",
+  "main": "./backend/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nomahacks/music-blender.git"
+  },
+  "keywords": [
+    "backend",
+    "server"
+  ],
+  "author": "wisehackermonkey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nomahacks/music-blender/issues"
+  },
+  "homepage": "https://github.com/nomahacks/music-blender#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-validator": "^5.3.1",
+    "node-spotify-api": "^1.1.1"
+  }
+}
