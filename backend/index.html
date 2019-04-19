@@ -11,9 +11,10 @@
             console.log(JSON.stringify(...args))
         }
         let id = ""
-        $(document).ready(()=> {
+        let hostname = window.location.href;
+        $(document).ready(() => {
 
-            $("#search").click(()=> {
+            $("#search").click(() => {
 
                 let artist_names = {"artist1": $("#artist1").val(), "artist2": $("#artist2").val()}
                 // $.post(
@@ -29,7 +30,7 @@
                 //     $(".result").append(`<ul>${JSON.stringify(data)}</ul>`)
                 // });
                 //
-                $.get("http://localhost:3000/api/v1/artist_id/", artist_names, (data) => {
+                $.get(`${hostname}api/v1/artist_id/`, artist_names, (data) => {
                     if (data === 'done') {
                         alert("Blend success")
                     }
@@ -39,26 +40,24 @@
                     p(id)
                 })
             })
-            $("#blend").click(()=> {
+            $("#blend").click(() => {
+                let artist_names = {"artist1": $("#artist1").val(), "artist2": $("#artist2").val()}
+
+                $.get(`${hostname}api/v1/artist_id/`, artist_names, (data) => {
+                    if (data === 'done') {
+                        alert("Blend success")
+                    }
+                }).done((data) => {
+                    alert("Responce:" + JSON.stringify(data))
+
                     p(`id.length = ${id.length}`)
-                // if(id.length > 0) {
-                    let artist_name = {"id": $("#artist2").val()}
-                    $.get("http://localhost:3000/api/v1/related_artist/", artist_name, (data) => {
+                    // if(id.length > 0) {
+                    let artist_name = {"id": data}
+                    $.get(`${hostname}api/v1/related_artist/`, artist_name, (data) => {
                         if (data === 'done') {
                             alert("Blend success")
                         }
                     }).done((artists) => {
-                        // console.log(JSON.stringify(artists))
-                        // alert("Responce:" + JSON.stringify(artists))
-                        // let artist_names = artists.map((artist) => {
-                        //     return artist.name
-                        // })
-                        // let html_output = ""
-                        // artist_names.forEach((name) => {
-                        //     html_output += `<li>${name}</li>`
-                        // })
-                        // $(".result").append(`<ol>${html_output}</ol>`)
-
                         //v2
                         let html_output = ""
                         let artist_names = artists.map((artist) => {
@@ -67,7 +66,8 @@
                         })
                         $(".result").append(`<ol>${html_output}</ol>`)
                     })
-                // }
+                    // }
+                })
             })
         });
     </script>
