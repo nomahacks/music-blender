@@ -199,7 +199,7 @@ app.get('/api/v1/related_artist', async (request, response) => {
     pp(request.query)
     p(artist_id)
     try {
-        let similar_artists = await spotify.request(`https://api.spotify.com/v1/artists/${"0SwO7SWeDHJijQ3XNS7xEE"}/related-artists`) //get_related_artist(artist_id)
+        let similar_artists = await spotify.request(`https://api.spotify.com/v1/artists/${artist_id}/related-artists`) //get_related_artist(artist_id)
         pp(similar_artists)
 
         let names_arr = get_artist_id_names(similar_artists)
