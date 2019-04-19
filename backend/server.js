@@ -152,15 +152,13 @@ app.get('/api/v1/artist_id/', async (request, response) => {
     let artist_name = request.query.artist1
     try {
         let artist_json = await artist_id(artist_name)
-        let id =  artist_json.artists.items[0].id
+        let id = artist_json.artists.items[0].id
         response.send(id)
     } catch (e) {
         p(e)
         response.send("Error: " + e.toString())
     }
 })
-
-
 
 
 function get_artist_id_names(hash) {
@@ -194,11 +192,12 @@ function get_related_artist(artist_id) {
 
 //http://localhost:3000/api/v1/related_artist/?artist1_id=4tZwfgrHOc3mvqYlEYSvVi&artist2_id=12Chz98pHFMPJEknJQMWvI
 app.get('/api/v1/related_artist', async (request, response) => {
-    let artist_id = request.query.id;
-    p("/api/v1/related_artist")
-    pp(request.query)
-    p(artist_id)
     try {
+        let artist_id = request.query.id;
+        p("/api/v1/related_artist")
+        pp(request.query)
+        p(artist_id)
+
         let similar_artists = await spotify.request(`https://api.spotify.com/v1/artists/${artist_id}/related-artists`) //get_related_artist(artist_id)
         pp(similar_artists)
 
@@ -211,7 +210,7 @@ app.get('/api/v1/related_artist', async (request, response) => {
         response.send(images_large_arr)
         // response.end("done")
     } catch (e) {
-        response.send(e)
+        response.send("failure")
     }
 
 })

@@ -1,7 +1,8 @@
 <html>
 <head>
-    <title>Simple login</title>
+    <title>Music Blender</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/1.0.10/purify.min.js"></script>
     <script>
         // remap console.log to be just p()
         const p = (...args) => {
@@ -16,7 +17,7 @@
 
             $("#search").click(() => {
 
-                let artist_names = {"artist1": $("#artist1").val(), "artist2": $("#artist2").val()}
+                let artist_names = {"artist1": DOMPurify.sanitize($("#artist1").val())/*, "artist2": $("#artist2").val()*/}
                 // $.post(
                 //     "http://localhost:3000/api/v1/artist_id",
                 //     artist_names,
@@ -41,32 +42,33 @@
                 })
             })
             $("#blend").click(() => {
-                let artist_names = {"artist1": $("#artist1").val(), "artist2": $("#artist2").val()}
+                $(".result").empty()
+                let artist_names = {"artist1": DOMPurify.sanitize($("#artist1").val())}
 
                 $.get(`${hostname}api/v1/artist_id/`, artist_names, (data) => {
                     if (data === 'done') {
                         alert("Blend success")
                     }
                 }).done((data) => {
-                    alert("Responce:" + JSON.stringify(data))
 
-                    p(`id.length = ${id.length}`)
-                    // if(id.length > 0) {
-                    let artist_name = {"id": data}
-                    $.get(`${hostname}api/v1/related_artist/`, artist_name, (data) => {
-                        if (data === 'done') {
-                            alert("Blend success")
-                        }
-                    }).done((artists) => {
-                        //v2
-                        let html_output = ""
-                        let artist_names = artists.map((artist) => {
-                            html_output += `<li><a href="${artist.url}"> <img  src="${artist.img}" alt="${artist.name}" width="${artist.width}" height="auto"> ${artist.name}</a> </li>`
-                            return artist.name
+                        let artist_name = {"id": data}
+                        $.get(`${hostname}api/v1/related_artist/`, artist_name, (data) => {
+                            if (data === 'done') {
+                                alert("Blend success")
+                            }
+                        }).done((artists) => {
+                            //v2
+                            try {
+                                let html_output = ""
+                                let artist_names = artists.map((artist) => {
+                                    html_output += `<li><a href="${artist.url}"> <img  src="${artist.img}" alt="${artist.name}" width="${artist.width}" height="auto"> ${artist.name}</a> </li>`
+                                    return artist.name
+                                })
+                                $(".result").append(`<ol>${html_output}</ol>`)
+                            } catch (e) {
+                                alert(`Artist not found: ${$("#artist1").val()}`)
+                            }
                         })
-                        $(".result").append(`<ol>${html_output}</ol>`)
-                    })
-                    // }
                 })
             })
         });
@@ -74,10 +76,10 @@
 </head>
 <body>
 <h1>Music Blender</h1>
-<input type="TEXT" id="artist1" value="muse" size="40"><br>
-<input type="TEXT" id="artist2" value="daft punk" size="40"><br>
+<input type="TEXT" id="artist1" value="daft punk" size="40"><br>
+<!--<input type="TEXT" id="artist2" value="daft punk" size="40"><br>-->
 
-<input type="button" id="search" value="Search">
+<!--<input type="button" id="search" value="Search">-->
 <input type="button" id="blend" value="Blend">
 <!--<form action="/api/v1/artist_id" method="post">-->
 <!--    <input type="text" id="artist1" name="artist1" value="muse" placeholder="muse">-->
