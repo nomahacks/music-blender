@@ -4,7 +4,8 @@ const expressValidator = require('express-validator')
 const {body} = require('express-validator/check')
 const express = require('express')
 const app = express()
-const port = 3000
+let port = process.env.PORT || 3000
+
 
 // setup midle ware to use bodyparser to parse url's
 app.use(bodyParser.urlencoded({extended: false}));
