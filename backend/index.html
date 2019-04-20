@@ -3,7 +3,11 @@
     <title>Music Blender</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/1.0.10/purify.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <script>
+
         // remap console.log to be just p()
         const p = (...args) => {
             console.log(...args)
@@ -11,81 +15,215 @@
         const pp = (...args) => {
             console.log(JSON.stringify(...args))
         }
-        let id = ""
+
         let hostname = window.location.href;
+        async function get_artist_id(name){
+            let resp = await fetch(`${hostname}api/v1/artist_id/?artist1=${name}`, {method: "GET"});
+            return await resp.json()
+        }
+        async function get_artist(name) {
+
+            // let artist_id = get_artist_id(name)
+            let resp = await fetch(`${hostname}api/v1/artist_id/?artist1=${name}`, {method: "GET"});
+            let artist_id =  await resp.json()
+            console.log(`Artist id ${artist_id.id}`)
+
+            let related_artist = await fetch(`${hostname}api/v1/related_artist/?id=${artist_id.id}`, {headers: {"Content-Type": "application/json"}})
+            console.log(`Artist id ${artist_id.id}`)
+            let related_artist_json = await related_artist.json()
+            return related_artist_json
+        }
+
+        function add_artist_to_page(div_class, json) {
+            $(`.${div_class}`).append(`
+                        <div class="item">
+                        <a href="${json.url}">
+                            <img src="${json.img}" alt="${json.name}"
+                            width="${json.width}" height="${json.height}">
+                            <p>${json.name}</p>
+                        </a>
+                        </div>`)
+        }
+
+        function list_all_artists(div_class, arr_artists_json) {
+            arr_artists_json.forEach((artist) => {
+                add_artist_to_page(div_class, artist)
+            })
+        }
+
         $(document).ready(() => {
-
-            $("#search").click(() => {
-
-                let artist_names = {"artist1": DOMPurify.sanitize($("#artist1").val())/*, "artist2": $("#artist2").val()*/}
-                // $.post(
-                //     "http://localhost:3000/api/v1/artist_id",
-                //     artist_names,
-                //      (data)=>{
-                //         if (data === 'done') {
-                //             alert("Blend success");
-                //         }
-                //     }
-                // ).done( (data)=>{
-                //     alert("Data Loaded: " + JSON.stringify(data))
-                //     $(".result").append(`<ul>${JSON.stringify(data)}</ul>`)
-                // });
-                //
-                $.get(`${hostname}api/v1/artist_id/`, artist_names, (data) => {
-                    if (data === 'done') {
-                        alert("Blend success")
-                    }
-                }).done((data) => {
-                    alert("Responce:" + JSON.stringify(data))
-                    id = data
-                    p(id)
+            $(".blend-button").click(() => {
+                $(".flex-container-left").empty()
+                $(".flex-container-right").empty()
+                let first_artist = $("#artist1").val()
+                let second_artist = $("#artist2").val()
+                get_artist(first_artist).then(artists => {
+                    list_all_artists("flex-container-left", artists)
                 })
-            })
-            $("#blend").click(() => {
-                $(".result").empty()
-                let artist_names = {"artist1": DOMPurify.sanitize($("#artist1").val())}
-
-                $.get(`${hostname}api/v1/artist_id/`, artist_names, (data) => {
-                    if (data === 'done') {
-                        alert("Blend success")
-                    }
-                }).done((data) => {
-
-                        let artist_name = {"id": data}
-                        $.get(`${hostname}api/v1/related_artist/`, artist_name, (data) => {
-                            if (data === 'done') {
-                                alert("Blend success")
-                            }
-                        }).done((artists) => {
-                            //v2
-                            try {
-                                let html_output = ""
-                                let artist_names = artists.map((artist) => {
-                                    html_output += `<li><a href="${artist.url}"> <img  src="${artist.img}" alt="${artist.name}" width="${artist.width}" height="auto"> ${artist.name}</a> </li>`
-                                    return artist.name
-                                })
-                                $(".result").append(`<ol>${html_output}</ol>`)
-                            } catch (e) {
-                                alert(`Artist not found: ${$("#artist1").val()}`)
-                            }
-                        })
+                get_artist(second_artist).then(artists => {
+                    list_all_artists("flex-container-right", artists)
                 })
+
             })
-        });
+        })
+
+        // async function render_artist() {
+        //     $(".flex-container-left").empty()
+        //     let first_artist = DOMPurify.sanitize($("#artist1").val())
+        //     // let second_artist =  DOMPurify.sanitize($("#artist2").val())
+        //     try {
+        //         let artist_id = await get_artist(first_artist, "flex-container-left");
+        //         alert(artist_id)
+        //         // get_artist(second_artist,"flex-container-right");
+        //     } catch (e) {
+        //         alert(e)
+        //     }
+        // }
+
+
+        // function get_artist(name, output_class) {
+        //
+        //
+        //     return new Promise(() => {
+        //         $.get(`${hostname}api/v1/artist_id/`, {"artist1": name}, (data) => {
+        //             if (data === 'done') {
+        //                 alert("Blend success")
+        //             }
+        //         }).done((data) => {
+        //             alert("Successfully found artist id: " + data)
+        //             return data
+        //             //
+        //             // $.get(`${hostname}api/v1/related_artist/`, {"id": data}, (data) => {
+        //             //     if (data === 'done') {
+        //             //         alert("Blend success")
+        //             //     }
+        //             // }).done((artists) => {
+        //             //     //v2
+        //                 try {
+        //                     let html_output = ""
+        //                     let artist_names = artists.map((artist) => {
+        //                         html_output += `
+        //                        <div class="item">
+        //                             <img src="${artist.url}" alt="${artist.name}" width="${artist.width}" height="${artist.height}">
+        //                             <p>${artist.name}</p>
+        //                         </div>
+        //                      `
+        //                         return artist.name
+        //                     })
+        //                     $(`.${output_class}`).append(html_output)
+        //             //     } catch (e) {
+        //             //         alert(`Artist not found: ${name}`)
+        //             //     }
+        //             // })
+        //         })
+        //     })
+        // }
+
     </script>
+    <style type="text/css">
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        #header {
+            font-size: 330%;
+            text-align: center;
+        }
+
+        #wrapper {
+            min-height: 80%;
+            background-color: greenyellow;
+            font-size: 226%;
+        }
+
+        .two-columns {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .flex-container-left {
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-content: flex-start;
+            align-items: flex-start;
+            background-color: gold;
+
+        }
+
+        .flex-container-right {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-content: flex-end;
+            align-items: flex-end;
+            background-color: deepskyblue;
+            text-align: right;
+
+        }
+
+        .item {
+            flex: 0 0 auto;
+            margin: 15px;
+        }
+
+        h6 {
+            font-size: small;
+            text-align: center;
+            background-color: black;
+            color: grey;
+        }
+
+        .blend-button {
+            height: 78px;
+            width: 175px;
+            border-radius: 25px;
+            font-size: 278%;
+        }
+
+        .aritst-input-boxes {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-around;
+            align-content: flex-start;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
-<h1>Music Blender</h1>
-<input type="TEXT" id="artist1" value="daft punk" size="40"><br>
-<!--<input type="TEXT" id="artist2" value="daft punk" size="40"><br>-->
 
-<!--<input type="button" id="search" value="Search">-->
-<input type="button" id="blend" value="Blend">
-<!--<form action="/api/v1/artist_id" method="post">-->
-<!--    <input type="text" id="artist1" name="artist1" value="muse" placeholder="muse">-->
-<!--    <input type="text" id="artist2" name="artist2" value="daft punk" placeholder="daft punk"><br><br>-->
-<!--    <input type="submit" value="Blend">-->
-<!--</form>-->
+<h1 id="header">Music Blender</h1>
+
+<div class="aritst-input-boxes">
+    <input type="text" id="artist1" value="muse">
+    <input type="button" class="blend-button" value="Blend">
+    <input type="text" id="artist2" value="daft punk">
+</div>
+
 <div class="result"></div>
+
+
+<div id="wrapper">
+    <div class="two-columns">
+
+        <div class="flex-container-left">
+        </div><!--flex-container-left end-->
+
+        <div class="flex-container-right">
+        </div><!--flex-container-right end-->
+
+    </div><!--two-columns end-->
+
+</div><!--wrapper end-->
+
+<h6>
+    Github.com/wisehackermonkey<br>
+    Made by Oran Collins<br>
+    2019/04/20<br>
+</h6>
+
 </body>
 </html>

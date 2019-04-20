@@ -33,7 +33,7 @@ function artists_ids(arr) {
 
 
 function get_artist_id(name) {
-    return spotify.search({type: 'artist', query: name})
+    return spotify.search({type: 'artist', query: name, limit: 10})
         .then((response) => {
             return response.artists.items[0].id
         })
@@ -123,7 +123,7 @@ app.post('/api/v1/related-artist', (request, responce) => {
 })
 
 function artist_id(name) {
-    return spotify.search({type: 'artist', query: name, limit: 1})
+    return spotify.search({type: 'artist', query: name})
 }
 
 async function accumulate_results(artist1, artist2, responce) {
@@ -153,7 +153,8 @@ app.get('/api/v1/artist_id/', async (request, response) => {
     try {
         let artist_json = await artist_id(artist_name)
         let id = artist_json.artists.items[0].id
-        response.send(id)
+        console.log(JSON.stringify({id:id}))
+        response.send({id:id})
     } catch (e) {
         p(e)
         response.send("Error: " + e.toString())
@@ -190,7 +191,7 @@ function get_related_artist(artist_id) {
     return spotify.request(`https://api.spotify.com/v1/artists/${artist_id}/related-artists`)
 }
 
-//http://localhost:3000/api/v1/related_artist/?artist1_id=4tZwfgrHOc3mvqYlEYSvVi&artist2_id=12Chz98pHFMPJEknJQMWvI
+//http://localhost:3000/api/v1/related_artist/?id=4tZwfgrHOc3mvqYlEYSvVi&artist2_id=12Chz98pHFMPJEknJQMWvI
 app.get('/api/v1/related_artist', async (request, response) => {
     try {
         let artist_id = request.query.id;
@@ -206,10 +207,10 @@ app.get('/api/v1/related_artist', async (request, response) => {
 
         pp(names_arr)
         pp(images_large_arr)
-
         response.send(images_large_arr)
         // response.end("done")
     } catch (e) {
+        console.log(e)
         response.send("failure")
     }
 
