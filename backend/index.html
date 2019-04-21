@@ -3,6 +3,7 @@
     <title>Music Blender</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/1.0.10/purify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -16,108 +17,167 @@
             console.log(JSON.stringify(...args))
         }
 
-        let hostname = window.location.href;
-        async function get_artist_id(name){
-            let resp = await fetch(`${hostname}api/v1/artist_id/?artist1=${name}`, {method: "GET"});
-            return await resp.json()
+        let hostname = window.location.href
+
+        let first_related_artists = []
+        let second_related_artists = []
+
+        function get_artist_id(name) {
+            return fetch(`${hostname}api/v1/artist_id/?artist1=${name}`, {method: "GET"})
         }
+
+        function get_related_artists(artist_id) {
+            return fetch(`${hostname}api/v1/related_artist/?id=${artist_id}`, {headers: {"Content-Type": "application/json"}})
+        }
+
+
         async function get_artist(name) {
 
             // let artist_id = get_artist_id(name)
-            let resp = await fetch(`${hostname}api/v1/artist_id/?artist1=${name}`, {method: "GET"});
-            let artist_id =  await resp.json()
+            let resp = await get_artist_id(name)
+
+            let artist_id = await resp.json()
+
             console.log(`Artist id ${artist_id.id}`)
 
-            let related_artist = await fetch(`${hostname}api/v1/related_artist/?id=${artist_id.id}`, {headers: {"Content-Type": "application/json"}})
-            console.log(`Artist id ${artist_id.id}`)
+            let related_artist = await get_related_artists(artist_id.id)
+
             let related_artist_json = await related_artist.json()
             return related_artist_json
         }
 
-        function add_artist_to_page(div_class, json) {
+        async function related_artists(artist_id) {
+            let related_artist = await get_related_artists(artist_id)
+            return await related_artist.json()
+        }
+
+        function add_artist_to_page(div_class, json, column) {
             $(`.${div_class}`).append(`
                         <div class="item">
-                        <a href="${json.url}">
+
+                        <div onclick="next_artist('${json.id}','${column}')"  data-id="${json.id}">
                             <img src="${json.img}" alt="${json.name}"
                             width="${json.width}" height="${json.height}">
                             <p>${json.name}</p>
-                        </a>
+                        </div>
+
+                        <a href="${json.url}"> Artist Page</a>
+
                         </div>`)
         }
 
-        function list_all_artists(div_class, arr_artists_json) {
-            arr_artists_json.forEach((artist) => {
-                add_artist_to_page(div_class, artist)
+        async function next_artist(artist_id, column) {
+            console.log(`Clicked on artist id: ${artist_id}, and the ${column} column`)
+            $(`.flex-container-${column}`).empty()
+
+            let artists = await related_artists(artist_id)
+            if(column === "left"){
+                first_related_artists = artists
+
+            }else if( column === "right"){
+                second_related_artists = artists
+            }
+            list_all_artists("flex-container-" + column, artists, column)
+            find_match(first_related_artists, second_related_artists)
+
+        }
+
+        function list_all_artists(div_class, arr_artists_json, column) {
+            arr_artists_json.forEach((artist, index) => {
+                add_artist_to_page(div_class, artist, column)
             })
         }
 
+
+
+        function get_artist_id_names(hash) {
+            return hash.map((artist) => {
+                return artist.id
+            })
+        }
+
+        function find_match(arr1, arr2) {
+            let related_artist1 = get_artist_id_names(arr1)
+            let related_artist2 = get_artist_id_names(arr2)
+            console.log(JSON.stringify(related_artist1))
+            console.log(JSON.stringify(related_artist2))
+
+            let result = matched(related_artist1,related_artist2)
+
+            console.log("Matching artist id's")
+            console.log(result)
+            if (result.length > 0) {
+                let id = result.pop()
+                let artist = (arr1.filter(x => id === x.id)).pop()
+
+                console.log(artist.name)
+                alert("found a blend!, Artist, " + artist.name)
+                $.notify.addStyle('blended', {
+                    html:
+                        `<div style="background-color: crimson;">
+    <div class='clearfix'>
+        <div class='title' data-notify-html='title'/>
+        <div class='buttons'>
+            <p>${artist.name}</p>
+            <img src="${artist.img}" alt="${artist.name}" width="160" height="160">
+            <button class='no'>Dismiss</button>
+            <button class='yes' data-notify-text='button'></button>
+        </div>
+    </div>
+</div>`})
+                $.notify({
+                    title: 'Artist Blend Found!',
+                    button: 'Blend Again?',
+                }, {
+                    style: 'blended',
+                    autoHide: false,
+                    clickToHide: false,globalPosition :"top center"
+                });
+
+            } else {
+                console.log("no artist matach")
+            }
+        }
+
+        //check if there is a match between two arrays of artist id's
+        //return the matching artist
+        function matched(artists_ids_a, artists_ids_b) {
+            return artists_ids_a.filter(artist_id => artists_ids_b.includes(artist_id))
+        }
+
+        async function run(first_artist, second_artist) {
+            first_related_artists = await get_artist(first_artist)
+            second_related_artists = await get_artist(second_artist)
+
+            list_all_artists("flex-container-left", first_related_artists, "left")
+            list_all_artists("flex-container-right", second_related_artists, "right")
+            find_match(first_related_artists, second_related_artists)
+
+        }
+
         $(document).ready(() => {
+
             $(".blend-button").click(() => {
                 $(".flex-container-left").empty()
                 $(".flex-container-right").empty()
                 let first_artist = $("#artist1").val()
                 let second_artist = $("#artist2").val()
-                get_artist(first_artist).then(artists => {
-                    list_all_artists("flex-container-left", artists)
-                })
-                get_artist(second_artist).then(artists => {
-                    list_all_artists("flex-container-right", artists)
-                })
-
+                run(first_artist, second_artist)
             })
+            $(document).on('click', '.notifyjs-blended-base .no', function() {
+                //programmatically trigger propogating hide event
+                $(this).trigger('notify-hide')
+            })
+            $(document).on('click', '.notifyjs-blended-base .yes', function() {
+                //show button text
+                alert($(this).text() + " clicked!")
+                //hide notification
+                $(this).trigger('notify-hide')
+            })
+
+
         })
 
-        // async function render_artist() {
-        //     $(".flex-container-left").empty()
-        //     let first_artist = DOMPurify.sanitize($("#artist1").val())
-        //     // let second_artist =  DOMPurify.sanitize($("#artist2").val())
-        //     try {
-        //         let artist_id = await get_artist(first_artist, "flex-container-left");
-        //         alert(artist_id)
-        //         // get_artist(second_artist,"flex-container-right");
-        //     } catch (e) {
-        //         alert(e)
-        //     }
-        // }
-
-
-        // function get_artist(name, output_class) {
-        //
-        //
-        //     return new Promise(() => {
-        //         $.get(`${hostname}api/v1/artist_id/`, {"artist1": name}, (data) => {
-        //             if (data === 'done') {
-        //                 alert("Blend success")
-        //             }
-        //         }).done((data) => {
-        //             alert("Successfully found artist id: " + data)
-        //             return data
-        //             //
-        //             // $.get(`${hostname}api/v1/related_artist/`, {"id": data}, (data) => {
-        //             //     if (data === 'done') {
-        //             //         alert("Blend success")
-        //             //     }
-        //             // }).done((artists) => {
-        //             //     //v2
-        //                 try {
-        //                     let html_output = ""
-        //                     let artist_names = artists.map((artist) => {
-        //                         html_output += `
-        //                        <div class="item">
-        //                             <img src="${artist.url}" alt="${artist.name}" width="${artist.width}" height="${artist.height}">
-        //                             <p>${artist.name}</p>
-        //                         </div>
-        //                      `
-        //                         return artist.name
-        //                     })
-        //                     $(`.${output_class}`).append(html_output)
-        //             //     } catch (e) {
-        //             //         alert(`Artist not found: ${name}`)
-        //             //     }
-        //             // })
-        //         })
-        //     })
-        // }
 
     </script>
     <style type="text/css">
@@ -198,9 +258,9 @@
 <h1 id="header">Music Blender</h1>
 
 <div class="aritst-input-boxes">
-    <input type="text" id="artist1" value="muse">
+    <input type="text" id="artist1" value="Bag Raiders">
     <input type="button" class="blend-button" value="Blend">
-    <input type="text" id="artist2" value="daft punk">
+    <input type="text" id="artist2" value="Daft Punk">
 </div>
 
 <div class="result"></div>

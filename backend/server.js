@@ -153,8 +153,8 @@ app.get('/api/v1/artist_id/', async (request, response) => {
     try {
         let artist_json = await artist_id(artist_name)
         let id = artist_json.artists.items[0].id
-        console.log(JSON.stringify({id:id}))
-        response.send({id:id})
+        console.log(JSON.stringify({id: id}))
+        response.send({id: id})
     } catch (e) {
         p(e)
         response.send("Error: " + e.toString())
@@ -173,11 +173,17 @@ function get_artist_id_names(hash) {
 function get_artist_infos(hash) {
     return hash.artists.map((artist) => {
         //the first image is always the largest
-        let img = artist.images[2]
+        let img;
+        if (typeof artist.images[2] === 'undefined') {
+            img = artist.images.pop()
+            console.error("Cant find smallest image, instead :" + img)
+        }else{
+            img = artist.images[2]
+        }
         let image = {
             "id": artist.id,
             "name": artist.name,
-            "img": img.url,
+            "img": img.url || "#",
             "height": img.height,
             "width": img.width,
             "url": artist.external_urls.spotify
@@ -200,13 +206,14 @@ app.get('/api/v1/related_artist', async (request, response) => {
         p(artist_id)
 
         let similar_artists = await spotify.request(`https://api.spotify.com/v1/artists/${artist_id}/related-artists`) //get_related_artist(artist_id)
-        pp(similar_artists)
+        // pp(similar_artists)
 
-        let names_arr = get_artist_id_names(similar_artists)
+        // let names_arr = get_artist_id_names(similar_artists)
         let images_large_arr = get_artist_infos(similar_artists)
 
-        pp(names_arr)
-        pp(images_large_arr)
+        // pp(names_arr)
+        // pp(images_large_arr)
+        p("Done")
         response.send(images_large_arr)
         // response.end("done")
     } catch (e) {
