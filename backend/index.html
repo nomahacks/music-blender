@@ -178,7 +178,7 @@
         }
 
         $(document).ready(() => {
-            if(hostname === "http://localhost:3000/"){
+            if(hostname !== "http://localhost:3000/"){
                 $("#artist1").val("")
                 $("#artist2").val("")
             }
@@ -303,7 +303,7 @@
 <div class="aritst-input-boxes">
     <input class="input-boxes" type="text" id="artist1" placeholder="Bag Raiders" value="Bag Raiders">
     <input type="button" class="blend-button" value="Blend">
-    <input class="input-boxes" type="text" id="artist2" placeholder="Daft Punk"  value="Bag Raiders">
+    <input class="input-boxes" type="text" id="artist2" placeholder="Daft Punk"  value="Daft Punk">
 </div>
 
 <div class="result"></div>
