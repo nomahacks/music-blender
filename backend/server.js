@@ -1,7 +1,7 @@
 let Spotify = require('node-spotify-api')
 const bodyParser = require("body-parser");
 const expressValidator = require('express-validator')
-const {body} = require('express-validator/check')
+// const {body} = require('express-validator/check')
 const express = require('express')
 const app = express()
 let port = process.env.PORT || 3000
@@ -25,11 +25,11 @@ let spotify = new Spotify({
     secret: "d34125bde2054240bbebb6c219999fad"
 })
 
-function artists_ids(arr) {
-    return arr.map((name, val) => {
-        return get_artist_id(name)
-    })
-}
+// function artists_ids(arr) {
+//     return arr.map((name, val) => {
+//         return get_artist_id(name)
+//     })
+// }
 
 
 function get_artist_id(name) {
@@ -42,16 +42,16 @@ function get_artist_id(name) {
             reject(err)
         })
 }
-
-function get_artist_id_alt(name) {
-    return spotify.search({type: 'artist', query: name})
-}
-
-function get_related_artists(artists_ids) {
-    return artist_ids.map((artist_id) => {
-        return get_related_artist(artist_id)
-    })
-}
+//
+// function get_artist_id_alt(name) {
+//     return spotify.search({type: 'artist', query: name})
+// }
+//
+// function get_related_artists(artists_ids) {
+//     return artist_ids.map((artist_id) => {
+//         return get_related_artist(artist_id)
+//     })
+// }
 
 
 console.log("Starting Music blender backend")
@@ -59,67 +59,6 @@ console.log("Starting Music blender backend")
 
 app.get("/", (request, responce) => {
     responce.sendfile("./backend/index.html");
-})
-
-
-// app.post('/api/v1/related-artist', (req, res) => {
-//     var user_name = req.body.user;
-//     var password = req.body.password;
-//     let artist1 = req.body.artist1;
-//     let artist2 = req.body.artist2;
-//
-//     console.log(`artist1: ${artist1}, artist2: ${artist2}`)
-//
-//     let id = spotify.search({type: 'artist', query: artist1})
-//
-//
-//     id.then((data) => {
-//         let artist_id = data.artists.items[0].id
-//         // console.log(JSON.stringify(id));
-//         console.log(id)
-//         // responce.send(id)
-//         // res.end("yes");
-//
-//         spotify.request(`https://api.spotify.com/v1/artists/${artist_id}/related-artists`)
-//             .then((data) => {
-//                 console.log("here")
-//                 let result = data.artists.map((currentValue) => {
-//                     return currentValue.name
-//                 })
-//                 res.send(result)
-//                 res.end("yes");
-//             })
-//             .catch((err) => {
-//                 console.error('Error occurred: ' + err)
-//             })
-//     }).catch((err) => {
-//         console.log(err)
-//         reject(err)
-//     })
-//
-// });
-
-
-// app.get("/api/v1/related-artists", (request, responce) => {
-//
-//     let promises = artists_ids(["the beatles", "muse", "wow"])
-//     Promise.all(promises).then((artist_ids) => {
-//         let results = get_related_artists(artists_ids)
-//         Promise.all(results).then((array) => {
-//             console.log(array)
-//             responce.send(array)
-//         })
-//     })
-//
-// })
-
-// app.post("/api/v1/related-artists/:name", (request, responce) => {
-//     responce.send("__TODO___")
-// })
-
-app.post('/api/v1/related-artist', (request, responce) => {
-    p(request.body.artist1)
-
 })
 
 function artist_id(name) {
@@ -180,12 +119,14 @@ function get_artist_infos(hash) {
         }else{
             img = artist.images[2]
         }
+
         let image = {
             "id": artist.id,
             "name": artist.name,
             "img": img.url || "#",
             "height": img.height,
             "width": img.width,
+            "genres": artist.genres,
             "url": artist.external_urls.spotify
         }
         image[artist.name] = artist.id
@@ -213,7 +154,7 @@ app.get('/api/v1/related_artist', async (request, response) => {
 
         // pp(names_arr)
         // pp(images_large_arr)
-        p("Done")
+        p("Completed Successfully")
         response.send(images_large_arr)
         // response.end("done")
     } catch (e) {
