@@ -8,7 +8,7 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <script>
-        $.notify.defaults({ className: "warn" })
+        $.notify.defaults({className: "warn"})
         // remap console.log to be just p()
         const p = (...args) => {
             console.log(...args)
@@ -80,7 +80,7 @@
                 }
                 list_all_artists("flex-container-" + column, artists, column)
                 find_match(first_related_artists, second_related_artists)
-            }catch (e) {
+            } catch (e) {
                 alert("Unknown error occured: " + e)
             }
 
@@ -155,7 +155,7 @@
             second_related_artists = []
         }
 
-        function main(){
+        function main() {
 
             $(".flex-container-left").empty()
             $(".flex-container-right").empty()
@@ -164,21 +164,24 @@
 
             let first_artist = $("#artist1").val()
             let second_artist = $("#artist2").val()
-            if(first_artist.length > 0 && second_artist.length > 0) {
+            if (first_artist.length > 0 && second_artist.length > 0) {
                 run(first_artist, second_artist)
             }
 
-            if(first_artist === ""){
+            if (first_artist === "") {
                 $("#artist1").notify("Required field");
             }
-            if(second_artist === ""){
+            if (second_artist === "") {
                 $("#artist2").notify("Required field");
                 $.notify("Required fields, Please enter a two artists names. For example 'Moby', and 'Flume'")
             }
         }
 
         $(document).ready(() => {
-
+            if(hostname === "http://localhost:3000/"){
+                $("#artist1").val("")
+                $("#artist2").val("")
+            }
             $(".blend-button").click(() => {
                 main()
             })
@@ -211,21 +214,26 @@
             justify-content: space-between;
         }
 
-        .flex-container-left {
-            flex-wrap: nowrap;
-            justify-content: flex-start;
-            align-content: flex-start;
-            align-items: flex-start;
-            background-color: #cecece;
 
-        }
-        .flex-container-center{
+
+        .flex-container-center {
             display: flex;
             flex-direction: column;
             flex-wrap: nowrap;
             justify-content: flex-start;
             align-content: center;
             align-items: center;
+            padding-top: 34px;
+        }
+
+        .flex-container-left {
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-content: flex-start;
+            align-items: flex-start;
+            background-color: #cecece;
+            padding-top: 40px;
+            padding-right: 70px;
         }
         .flex-container-right {
             display: flex;
@@ -236,6 +244,8 @@
             align-items: flex-end;
             background-color: #cecece;
             text-align: right;
+            padding-top: 40px;
+            padding-right: 70px;
 
         }
 
@@ -243,11 +253,13 @@
             flex: 0 0 auto;
             margin: 15px;
         }
+
         /*.item:nth-child(even) {background-color: #f2f2f2;}*/
-        .result-item{
+        .result-item {
             order: 0;
             flex: 0 1 auto;
             align-self: center;
+            margin-bottom: 30px;
         }
 
         h6 {
@@ -274,9 +286,13 @@
             align-items: center;
         }
 
-        .input-boxes{
+        .input-boxes {
             height: 40px;
             font-size: 23px;
+        }
+
+        img {
+            border-radius: 15px;
         }
     </style>
 </head>
@@ -285,9 +301,9 @@
 <h1 id="header">Music Blender</h1>
 
 <div class="aritst-input-boxes">
-    <input class="input-boxes" type="text" id="artist1" placeholder="Bag Raiders">
+    <input class="input-boxes" type="text" id="artist1" placeholder="Bag Raiders" value="Bag Raiders">
     <input type="button" class="blend-button" value="Blend">
-    <input class="input-boxes" type="text" id="artist2" placeholder="Daft Punk">
+    <input class="input-boxes" type="text" id="artist2" placeholder="Daft Punk"  value="Bag Raiders">
 </div>
 
 <div class="result"></div>
