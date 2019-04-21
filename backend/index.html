@@ -6,6 +6,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!--    <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet">-->
+    <link href="https://fonts.googleapis.com/css?family=Concert+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
 
     <script>
         $.notify.defaults({className: "warn"})
@@ -178,7 +181,7 @@
         }
 
         $(document).ready(() => {
-            if(hostname !== "http://localhost:3000/"){
+            if (hostname !== "http://localhost:3000/") {
                 $("#artist1").val("")
                 $("#artist2").val("")
             }
@@ -194,12 +197,16 @@
         html, body {
             height: 100%;
             margin: 0;
+            padding: 0;
+            font-family: 'Roboto Condensed', sans-serif;
         }
 
         #header {
             font-size: 330%;
             text-align: center;
             height: 80px;
+            font-family: 'Concert One', cursive;
+
         }
 
         #wrapper {
@@ -212,8 +219,8 @@
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+            height: 100%;
         }
-
 
 
         .flex-container-center {
@@ -235,6 +242,7 @@
             padding-top: 40px;
             padding-right: 70px;
         }
+
         .flex-container-right {
             display: flex;
             flex-direction: column;
@@ -266,7 +274,8 @@
             font-size: small;
             text-align: center;
             background-color: black;
-            color: grey;
+            color: black;
+            position: relative;
         }
 
         .blend-button {
@@ -303,7 +312,7 @@
 <div class="aritst-input-boxes">
     <input class="input-boxes" type="text" id="artist1" placeholder="Bag Raiders" value="Bag Raiders">
     <input type="button" class="blend-button" value="Blend">
-    <input class="input-boxes" type="text" id="artist2" placeholder="Daft Punk"  value="Daft Punk">
+    <input class="input-boxes" type="text" id="artist2" placeholder="Daft Punk" value="Daft Punk">
 </div>
 
 <div class="result"></div>
@@ -320,13 +329,13 @@
 
     </div><!--two-columns end-->
 
+    <h6>
+        Github.com/wisehackermonkey<br>
+        Made by Oran Collins<br>
+        2019/04/20<br>
+    </h6>
 </div><!--wrapper end-->
 
-<h6>
-    Github.com/wisehackermonkey<br>
-    Made by Oran Collins<br>
-    2019/04/20<br>
-</h6>
 
 </body>
 </html>
