@@ -67,18 +67,22 @@
         }
 
         async function next_artist(artist_id, column) {
-            console.log(`Clicked on artist id: ${artist_id}, and the ${column} column`)
-            $(`.flex-container-${column}`).empty()
+            try {
+                console.log(`Clicked on artist id: ${artist_id}, and the ${column} column`)
+                $(`.flex-container-${column}`).empty()
 
-            let artists = await related_artists(artist_id)
-            if(column === "left"){
-                first_related_artists = artists
+                let artists = await related_artists(artist_id)
+                if (column === "left") {
+                    first_related_artists = artists
 
-            }else if( column === "right"){
-                second_related_artists = artists
+                } else if (column === "right") {
+                    second_related_artists = artists
+                }
+                list_all_artists("flex-container-" + column, artists, column)
+                find_match(first_related_artists, second_related_artists)
+            }catch (e) {
+                alert("Unknown error occured: " + e)
             }
-            list_all_artists("flex-container-" + column, artists, column)
-            find_match(first_related_artists, second_related_artists)
 
         }
 
@@ -87,7 +91,6 @@
                 add_artist_to_page(div_class, artist, column)
             })
         }
-
 
 
         function get_artist_id_names(hash) {
@@ -102,38 +105,27 @@
             console.log(JSON.stringify(related_artist1))
             console.log(JSON.stringify(related_artist2))
 
-            let result = matched(related_artist1,related_artist2)
+            let result = matched(related_artist1, related_artist2)
 
             console.log("Matching artist id's")
             console.log(result)
             if (result.length > 0) {
                 let id = result.pop()
                 let artist = (arr1.filter(x => id === x.id)).pop()
+                $(".flex-container-left").empty()
+                $(".flex-container-right").empty()
+                $(".two-columns").hide();
 
-                console.log(artist.name)
-                alert("found a blend!, Artist, " + artist.name)
-                $.notify.addStyle('blended', {
-                    html:
-                        `<div style="background-color: crimson;">
-    <div class='clearfix'>
-        <div class='title' data-notify-html='title'/>
-        <div class='buttons'>
-            <p>${artist.name}</p>
-            <img src="${artist.img}" alt="${artist.name}" width="160" height="160">
-            <button class='no'>Dismiss</button>
-            <button class='yes' data-notify-text='button'></button>
-        </div>
+                $("#wrapper").append(`
+<div class="flex-container-center">
+    <div class="result-item">
+        <img src="${artist.img}" alt="${artist.name}"
+             width="${artist.width}" height="${artist.height}">
+        <p>${artist.name}</p>
     </div>
-</div>`})
-                $.notify({
-                    title: 'Artist Blend Found!',
-                    button: 'Blend Again?',
-                }, {
-                    style: 'blended',
-                    autoHide: false,
-                    clickToHide: false,globalPosition :"top center"
-                });
-
+    <a class="result-item" href="${artist.url}"> Artist Page</a>
+    <button  class="result-item" onclick="alert('__TODO__')"> Blend Again?</button>
+</div>`)
             } else {
                 console.log("no artist matach")
             }
@@ -160,15 +152,17 @@
             $(".blend-button").click(() => {
                 $(".flex-container-left").empty()
                 $(".flex-container-right").empty()
+                $(".two-columns").show()
+                $(".flex-container-center").hide()
                 let first_artist = $("#artist1").val()
                 let second_artist = $("#artist2").val()
                 run(first_artist, second_artist)
             })
-            $(document).on('click', '.notifyjs-blended-base .no', function() {
+            $(document).on('click', '.notifyjs-blended-base .no', function () {
                 //programmatically trigger propogating hide event
                 $(this).trigger('notify-hide')
             })
-            $(document).on('click', '.notifyjs-blended-base .yes', function() {
+            $(document).on('click', '.notifyjs-blended-base .yes', function () {
                 //show button text
                 alert($(this).text() + " clicked!")
                 //hide notification
@@ -211,7 +205,14 @@
             background-color: gold;
 
         }
-
+        .flex-container-center{
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-content: center;
+            align-items: center;
+        }
         .flex-container-right {
             display: flex;
             flex-direction: column;
@@ -227,6 +228,12 @@
         .item {
             flex: 0 0 auto;
             margin: 15px;
+        }
+        .item:nth-child(even) {background-color: #f2f2f2;}
+        .result-item{
+            order: 0;
+            flex: 0 1 auto;
+            align-self: center;
         }
 
         h6 {
@@ -251,6 +258,11 @@
             align-content: flex-start;
             align-items: center;
         }
+
+        .input-boxes{
+            height: 40px;
+            font-size: 23px;
+        }
     </style>
 </head>
 <body>
@@ -258,9 +270,9 @@
 <h1 id="header">Music Blender</h1>
 
 <div class="aritst-input-boxes">
-    <input type="text" id="artist1" value="Bag Raiders">
+    <input class="input-boxes" type="text" id="artist1" value="Bag Raiders">
     <input type="button" class="blend-button" value="Blend">
-    <input type="text" id="artist2" value="Daft Punk">
+    <input class="input-boxes" type="text" id="artist2" value="Daft Punk">
 </div>
 
 <div class="result"></div>
