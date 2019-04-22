@@ -62,6 +62,7 @@
                             <img src="${json.img}" alt="${json.name}"
                             width="${json.width}" height="${json.height}">
                             <p>${json.name}</p>
+                            <p> ${json.genres.slice(1,4).length ===0?"Genre " + json.genres.join(", "):"Genre " + json.genres.slice(1,4).join(", ")}</p>
                         </div>
 
                         <a href="${json.url}"> Artist Page</a>
@@ -84,13 +85,13 @@
                 list_all_artists("flex-container-" + column, artists, column)
                 find_match(first_related_artists, second_related_artists)
             } catch (e) {
-                alert("Unknown error occured: " + e)
+                alert("Unknown error occurred, Please restart your blend. (For the developer only): " + e)
             }
 
         }
 
         function list_all_artists(div_class, arr_artists_json, column) {
-            arr_artists_json.forEach((artist, index) => {
+            arr_artists_json.forEach((artist) => {
                 add_artist_to_page(div_class, artist, column)
             })
         }
@@ -338,6 +339,40 @@
     </h6>
 </div><!--wrapper end-->
 
+<h1>Spotify Web Playback SDK Quick Start Tutorial</h1>
+<h2>Open your console log: <code>View > Developer > JavaScript Console</code></h2>
 
+<script src="https://sdk.scdn.co/spotify-player.js"></script>
+<script>
+    window.onSpotifyWebPlaybackSDKReady = () => {
+        const token = 'BQCq4-1di61FBVuB3eVr_ypd0wZUzHu3M4KaPok1NaFdOtD3JGBvQT2Ad2NAo41VjtglM-2XN6BHTXWF6NFZBhnieQYsEWXq6JypX3CE3li4hMhxpyFqQFMGfcQepbrkoS7p1GQ0wvhF8-Czm1qcJQZZLYcs3Eo8faLJKwbwyloAQiZcT8M5Fg9t';
+        const player = new Spotify.Player({
+            name: 'Web Playback SDK Quick Start Player',
+            getOAuthToken: cb => { cb(token); }
+        });
+
+        // Error handling
+        player.addListener('initialization_error', ({ message }) => { console.error(message); });
+        player.addListener('authentication_error', ({ message }) => { console.error(message); });
+        player.addListener('account_error', ({ message }) => { console.error(message); });
+        player.addListener('playback_error', ({ message }) => { console.error(message); });
+
+        // Playback status updates
+        player.addListener('player_state_changed', state => { console.log(state); });
+
+        // Ready
+        player.addListener('ready', ({ device_id }) => {
+            console.log('Ready with Device ID', device_id);
+        });
+
+        // Not Ready
+        player.addListener('not_ready', ({ device_id }) => {
+            console.log('Device ID has gone offline', device_id);
+        });
+
+        // Connect to the player!
+        player.connect();
+    };
+</script>
 </body>
 </html>

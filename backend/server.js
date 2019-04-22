@@ -1,7 +1,6 @@
 let Spotify = require('node-spotify-api')
 const bodyParser = require("body-parser");
 const expressValidator = require('express-validator')
-// const {body} = require('express-validator/check')
 const express = require('express')
 const app = express()
 let port = process.env.PORT || 3000
@@ -25,11 +24,7 @@ let spotify = new Spotify({
     secret: "d34125bde2054240bbebb6c219999fad"
 })
 
-// function artists_ids(arr) {
-//     return arr.map((name, val) => {
-//         return get_artist_id(name)
-//     })
-// }
+
 
 
 function get_artist_id(name) {
@@ -42,16 +37,7 @@ function get_artist_id(name) {
             reject(err)
         })
 }
-//
-// function get_artist_id_alt(name) {
-//     return spotify.search({type: 'artist', query: name})
-// }
-//
-// function get_related_artists(artists_ids) {
-//     return artist_ids.map((artist_id) => {
-//         return get_related_artist(artist_id)
-//     })
-// }
+
 
 
 console.log("Starting Music blender backend")
@@ -84,7 +70,6 @@ async function accumulate_results(artist1, artist2, responce) {
 }
 
 
-//
 app.get('/api/v1/artist_id/', async (request, response) => {
     p("/api/v1/artist_id/")
     p(JSON.stringify(request.query))
@@ -99,15 +84,6 @@ app.get('/api/v1/artist_id/', async (request, response) => {
         response.send("Error: " + e.toString())
     }
 })
-
-
-function get_artist_id_names(hash) {
-    return hash.artists.map((artist) => {
-        let pair = {}
-        pair[artist.name] = artist.id
-        return pair
-    })
-}
 
 function get_artist_infos(hash) {
     return hash.artists.map((artist) => {
@@ -146,17 +122,12 @@ app.get('/api/v1/related_artist', async (request, response) => {
         pp(request.query)
         p(artist_id)
 
-        let similar_artists = await spotify.request(`https://api.spotify.com/v1/artists/${artist_id}/related-artists`) //get_related_artist(artist_id)
-        // pp(similar_artists)
+        let similar_artists = await get_related_artist(artist_id)
 
-        // let names_arr = get_artist_id_names(similar_artists)
         let images_large_arr = get_artist_infos(similar_artists)
 
-        // pp(names_arr)
-        // pp(images_large_arr)
         p("Completed Successfully")
         response.send(images_large_arr)
-        // response.end("done")
     } catch (e) {
         console.log(e)
         response.send("failure")
